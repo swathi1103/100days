@@ -1,0 +1,5 @@
+Understanding the basic commands
+git clone --> pulling the copy of code from central repo to local repo
+git pull --> fetch the changes  that are done for the code from central repo to local repo
+git push --> send the changes made in code from local repo to central repo
+git commit --> for commiting the changes

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>College Finder India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="#" class="brand" aria-label="College Finder India home">
+          <span class="brand-mark">🎓</span>
+          <span class="brand-text">College Finder India</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            <li><a href="#" class="nav-link active">Home</a></li>
+            <li><a href="#btech" class="nav-link">B.Tech</a></li>
+            <li><a href="#mba" class="nav-link">MBA</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <button id="btnSaved" class="btn btn-tertiary" title="Saved colleges">Saved</button>
+          <button id="btnLogin" class="btn btn-primary">Login / Sign up</button>
+          <button id="btnProfile" class="btn btn-secondary hidden" aria-haspopup="menu">Hi, <span id="profileName"></span></button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <h1>Find Your Perfect College in India</h1>
+            <p>Explore top B.Tech and MBA colleges with fees, courses, photos and everything you need to make the right decision.</p>
+            <div class="searchbar">
+              <input id="searchInput" type="search" placeholder="Search by college, city or course..." aria-label="Search colleges" />
+              <div class="toggle-group" role="group" aria-label="Degree filter">
+                <button class="toggle active" data-degree="all">All</button>
+                <button class="toggle" data-degree="btech">B.Tech</button>
+                <button class="toggle" data-degree="mba">MBA</button>
+              </div>
+              <button id="btnSearch" class="btn btn-primary">Search</button>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="catalog">
+        <div class="container catalog-grid">
+          <aside class="filters" aria-label="Filters">
+            <div class="filter-card">
+              <h3>Filters</h3>
+              <div class="filter-group">
+                <label for="stateSelect">State</label>
+                <select id="stateSelect">
+                  <option value="">All States</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="cityInput">City</label>
+                <input id="cityInput" type="text" placeholder="e.g., Mumbai" />
+              </div>
+              <div class="filter-group">
+                <fieldset>
+                  <legend>Degree</legend>
+                  <label class="checkbox">
+                    <input type="checkbox" id="degBtech" checked />
+                    <span>B.Tech</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" id="degMba" checked />
+                    <span>MBA</span>
+                  </label>
+                </fieldset>
+              </div>
+              <div class="filter-group">
+                <label for="maxFees">Max Annual Fees (₹)</label>
+                <input type="range" id="maxFees" min="50000" max="1000000" step="50000" />
+                <div class="range-values">
+                  <span>₹50k</span>
+                  <strong id="maxFeesValue">₹5,00,000</strong>
+                  <span>₹10L</span>
+                </div>
+              </div>
+              <div class="filter-group">
+                <label for="courseSelect">Course</label>
+                <select id="courseSelect">
+                  <option value="">Any</option>
+                </select>
+              </div>
+              <div class="filter-actions">
+                <button id="btnClearFilters" class="btn btn-tertiary">Clear</button>
+                <button id="btnApplyFilters" class="btn btn-secondary">Apply</button>
+              </div>
+            </div>
+            <div class="info-card">
+              <h3>Need Help?</h3>
+              <p>Get a one-on-one expert connect. Share your details and our counselor will reach out.</p>
+              <button id="btnOpenLead" class="btn btn-primary">Request 1:1 Connect</button>
+            </div>
+          </aside>
+
+          <div class="results">
+            <div class="results-header">
+              <h2><span id="resultsCount">0</span> Colleges</h2>
+              <div class="sort">
+                <label for="sortSelect">Sort by</label>
+                <select id="sortSelect">
+                  <option value="relevance">Relevance</option>
+                  <option value="feesAsc">Fees: Low to High</option>
+                  <option value="feesDesc">Fees: High to Low</option>
+                  <option value="ratingDesc">Rating: High to Low</option>
+                </select>
+              </div>
+            </div>
+            <div id="collegeGrid" class="card-grid" aria-live="polite"></div>
+            <div id="emptyState" class="empty hidden" role="status">
+              <p>No colleges match your filters. Try clearing filters or searching another city/course.</p>
+              <button id="btnResetAll" class="btn btn-secondary">Reset All</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <div class="container">
+          <h2>About</h2>
+          <p>College Finder India helps students explore B.Tech and MBA colleges across India with transparent fee details, courses, pictures, and reliable information to make informed decisions. Save your favorites and request a callback for personalized guidance.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <div class="brand small">
+            <span class="brand-mark">🎓</span>
+            <span class="brand-text">College Finder India</span>
+          </div>
+          <p class="muted">© <span id="year"></span> All rights reserved.</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul>
+            <li><a href="#privacy">Privacy</a></li>
+            <li><a href="#terms">Terms</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <dialog id="loginModal" class="modal">
+      <form method="dialog" class="modal-box" id="loginFormBox">
+        <header class="modal-header">
+          <h3>Login / Sign up</h3>
+          <button type="button" class="icon-btn" id="closeLogin" aria-label="Close">✕</button>
+        </header>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="loginName">Full Name</label>
+            <input id="loginName" type="text" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" type="email" placeholder="name@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="loginPhone">Phone</label>
+            <input id="loginPhone" type="tel" placeholder="10-digit number" pattern="[0-9]{10}" required />
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button class="btn btn-tertiary" value="cancel">Cancel</button>
+          <button id="btnDoLogin" class="btn btn-primary" value="default">Continue</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <!-- Lead (1:1 Connect) Modal -->
+    <dialog id="leadModal" class="modal">
+      <form method="dialog" class="modal-box" id="leadFormBox">
+        <header class="modal-header">
+          <h3>Request 1:1 Connect</h3>
+          <button type="button" class="icon-btn" id="closeLead" aria-label="Close">✕</button>
+        </header>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="leadName">Full Name</label>
+            <input id="leadName" type="text" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="leadEmail">Email</label>
+            <input id="leadEmail" type="email" placeholder="name@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="leadPhone">Phone</label>
+            <input id="leadPhone" type="tel" placeholder="10-digit number" pattern="[0-9]{10}" required />
+          </div>
+          <div class="form-group">
+            <label for="leadMessage">What are you looking for?</label>
+            <textarea id="leadMessage" rows="3" placeholder="e.g., B.Tech in CSE in Maharashtra under 2L/year"></textarea>
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button class="btn btn-tertiary" value="cancel">Cancel</button>
+          <button id="btnSubmitLead" class="btn btn-primary" value="default">Submit</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <!-- College Details Modal -->
+    <dialog id="detailsModal" class="modal large">
+      <div class="modal-box">
+        <header class="modal-header">
+          <h3 id="detailsTitle">College Details</h3>
+          <button type="button" class="icon-btn" id="closeDetails" aria-label="Close">✕</button>
+        </header>
+        <div class="modal-body details-body">
+          <div class="gallery" id="detailsGallery" aria-label="College images"></div>
+          <div class="details-info">
+            <div class="detail-row"><strong>Location:</strong> <span id="detailsLocation"></span></div>
+            <div class="detail-row"><strong>Type:</strong> <span id="detailsType"></span></div>
+            <div class="detail-row"><strong>Annual Fees:</strong> <span id="detailsFees"></span></div>
+            <div class="detail-row"><strong>Rating:</strong> <span id="detailsRating"></span></div>
+            <div class="detail-row"><strong>Courses:</strong> <span id="detailsCourses"></span></div>
+            <p id="detailsDescription" class="details-desc"></p>
+            <div class="details-actions">
+              <a id="detailsWebsite" class="btn btn-tertiary" target="_blank" rel="noopener">Visit Website</a>
+              <button id="detailsSave" class="btn btn-secondary">Save</button>
+              <button id="detailsConnect" class="btn btn-primary">Request 1:1 Connect</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="./assets/js/app.js" defer></script>
+  </body>
+</html>
